@@ -3,273 +3,312 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ICANG VERSE</title>
+<title>ICANG VERSE - Home</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Work+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary-fixed": "#c9e6ff",
-                        "surface": "#fcf9f8",
-                        "primary-fixed-dim": "#edc157",
-                        "on-primary": "#ffffff",
-                        "on-background": "#1b1c1c",
-                        "surface-tint": "#785a00",
-                        "primary-container": "#ffd166",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#4e4636",
-                        "outline": "#807664",
-                        "surface-container-high": "#eae7e7",
-                        "on-surface": "#1b1c1c",
-                        "on-tertiary-fixed-variant": "#004c6e",
-                        "surface-container-highest": "#e4e2e1",
-                        "error-container": "#ffdad6",
-                        "on-secondary-fixed-variant": "#763300",
-                        "on-tertiary-fixed": "#001e2f",
-                        "background": "#fcf9f8",
-                        "secondary": "#964913",
-                        "error": "#ba1a1a",
-                        "inverse-on-surface": "#f3f0ef",
-                        "surface-variant": "#e4e2e1",
-                        "surface-container": "#f0eded",
-                        "on-secondary-container": "#743200",
-                        "primary": "#785a00",
-                        "tertiary-fixed-dim": "#8aceff",
-                        "surface-dim": "#dcd9d9",
-                        "on-primary-container": "#765900",
-                        "primary-fixed": "#ffdf9b",
-                        "on-error": "#ffffff",
-                        "inverse-primary": "#edc157",
-                        "on-primary-fixed": "#251a00",
-                        "tertiary-container": "#b0dcff",
-                        "on-tertiary": "#ffffff",
-                        "inverse-surface": "#303030",
-                        "surface-bright": "#fcf9f8",
-                        "secondary-fixed-dim": "#ffb68d",
-                        "secondary-fixed": "#ffdbc9",
-                        "tertiary": "#006491",
-                        "outline-variant": "#d1c5b1",
-                        "surface-container-low": "#f6f3f2",
-                        "on-tertiary-container": "#00638f",
-                        "on-primary-fixed-variant": "#5b4300",
-                        "secondary-container": "#fe9b5f",
-                        "on-secondary": "#ffffff",
-                        "on-secondary-fixed": "#331200",
-                        "surface-container-lowest": "#ffffff"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "container-margin": "24px",
-                        "gutter": "16px",
-                        "base": "8px",
-                        "section-gap": "48px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Work Sans"],
-                        "display-lg": ["Plus Jakarta Sans"],
-                        "body-md": ["Work Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "label-bold": ["Work Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
-                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
-                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
-                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "700" }],
-                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }]
-                    }
-                }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#a63934",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#6e2f00",
+                    "primary-container": "#f8965b",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-surface": "#221a15",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#ff8f86",
+                    "on-primary-fixed": "#331200",
+                    "surface-bright": "#fff8f6",
+                    "on-tertiary-container": "#7f1c1b",
+                    "on-secondary-fixed": "#251a00",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "surface-variant": "#f0dfd8",
+                    "secondary-fixed": "#ffdf9b",
+                    "surface-dim": "#e7d7cf",
+                    "outline-variant": "#dac1b5",
+                    "surface-container-highest": "#f0dfd8",
+                    "surface-container": "#fceae3",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#382e29",
+                    "on-primary-fixed-variant": "#763300",
+                    "secondary": "#785a00",
+                    "surface-tint": "#964913",
+                    "background": "#fff8f6",
+                    "on-tertiary-fixed-variant": "#86211f",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#edc157",
+                    "on-tertiary-fixed": "#410003",
+                    "on-secondary-container": "#765900",
+                    "secondary-container": "#ffd167",
+                    "surface-container-high": "#f6e5dd",
+                    "surface-container-low": "#fff1eb",
+                    "on-surface-variant": "#55433a",
+                    "surface": "#fff8f6",
+                    "inverse-primary": "#ffb68d",
+                    "error-container": "#ffdad6",
+                    "outline": "#887368",
+                    "primary-fixed-dim": "#ffb68d",
+                    "primary": "#964913",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#ffdbc9",
+                    "on-secondary-fixed-variant": "#5b4300",
+                    "on-background": "#221a15",
+                    "inverse-on-surface": "#ffede6",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "xs": "4px",
+                    "gutter": "20px",
+                    "lg": "40px",
+                    "sm": "12px",
+                    "xl": "64px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-bold": ["Plus Jakarta Sans"],
+                    "display": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "label-bold": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}]
             }
+          }
         }
+      }
     </script>
 <style>
-        .neo-shadow {
-            box-shadow: 4px 4px 0px 0px rgba(27,28,28,1);
+        body {
+            background-color: #FFF7E6; /* Cream background forced */
+            color: #221a15;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
         }
-        .neo-shadow-lg {
-            box-shadow: 8px 8px 0px 0px rgba(27,28,28,1);
+        
+        .sticker-card {
+            border: 2px solid #221a15;
+            box-shadow: 4px 4px 0px 0px #221a15;
+            transition: all 0.2s ease;
         }
-        .neo-border {
-            border: 2px solid #1b1c1c;
+        
+        .sticker-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #221a15;
         }
-        .neo-border-thick {
-            border: 3px solid #1b1c1c;
-        }
-        .btn-neo {
+        
+        .sticker-btn {
+            border: 2px solid #221a15;
+            box-shadow: 4px 4px 0px 0px #221a15;
             transition: all 0.1s ease;
         }
-        .btn-neo:active {
-            transform: translate(3px, 3px);
-            box-shadow: 1px 1px 0px 0px rgba(27,28,28,1);
+        
+        .sticker-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px #221a15;
+        }
+
+        .wobbly-line {
+            height: 2px;
+            background-color: #221a15;
+            border-radius: 50%;
+            width: 100%;
+            margin: 40px 0;
+            opacity: 0.8;
+            transform: rotate(-1deg);
         }
         
-        .sticker-rotate-1 { transform: rotate(1deg); }
-        .sticker-rotate-minus-1 { transform: rotate(-1deg); }
-        .sticker-rotate-2 { transform: rotate(2deg); }
-        .sticker-rotate-minus-2 { transform: rotate(-2deg); }
-        
-        /* Grid background pattern */
-        .grid-bg {
-            background-size: 24px 24px;
-            background-image: linear-gradient(to right, #eae7e7 1px, transparent 1px),
-                              linear-gradient(to bottom, #eae7e7 1px, transparent 1px);
-        }
+        /* Slight rotations for sticker feel */
+        .rotate-1 { transform: rotate(1deg); }
+        .rotate-neg-1 { transform: rotate(-1deg); }
+        .rotate-2 { transform: rotate(2deg); }
+        .rotate-neg-2 { transform: rotate(-2deg); }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-surface text-on-surface font-body-md grid-bg min-h-screen flex flex-col pt-[88px] overflow-x-hidden md:pl-64">
-<!-- TopAppBar (Mobile) -->
-<header class="bg-surface dark:bg-surface-dim font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg docked full-width top-0 border-b-2 border-on-background dark:border-on-background shadow-[4px_4px_0px_0px_rgba(27,28,28,1)] flex justify-between items-center w-full px-container-margin py-base max-w-7xl mx-auto fixed z-40 md:hidden">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">computer</span>
-<span class="font-display-lg text-headline-md text-on-surface dark:text-on-surface tracking-tighter">ICANG HUB</span>
-</div>
-<button class="bg-primary-container text-on-primary-container font-label-bold text-label-bold px-4 py-2 rounded-lg neo-border neo-shadow btn-neo">Let's Explore</button>
-</header>
-<!-- NavigationDrawer (Desktop) -->
-<nav class="bg-surface-container dark:bg-surface-container-high rounded-r-xl border-r-2 border-on-background h-full shadow-[8px_0px_0px_0px_rgba(27,28,28,1)] fixed inset-y-0 left-0 z-50 w-64 hidden md:flex flex-col">
-<div class="p-6 border-b-2 border-on-background">
-<h2 class="font-display-lg text-headline-md text-primary font-label-bold text-label-bold">Notebook Menu</h2>
-</div>
-<div class="flex flex-col gap-2 p-4 flex-grow overflow-y-auto">
-<!-- Active Tab: Home -->
-<a class="bg-primary-container dark:bg-primary-fixed text-on-primary-container border-2 border-on-background shadow-[2px_2px_0px_0px_rgba(27,28,28,1)] flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
-                Home
-            </a>
-<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined">folder_open</span>
-                Projects
-            </a>
-<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined">science</span>
-                Experiments
-            </a>
-<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined">sticky_note_2</span>
-                Notes
-            </a>
-<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined">construction</span>
-                Tools
-            </a>
-<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-3 p-3 rounded-xl font-label-bold text-label-bold hover:bg-tertiary-container hover:text-on-tertiary-container transition-colors active:scale-95 duration-100" href="#">
-<span class="material-symbols-outlined">person</span>
-                About
-            </a>
-</div>
+</head>
+<body class="min-h-screen flex flex-col relative antialiased">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-surface-container-lowest flex justify-between items-center px-margin-desktop h-20 w-full sticky top-0 z-50 border-b-2 border-on-surface shadow-[4px_4px_0px_0px_#221a15] md:px-margin-desktop px-margin-mobile">
+<div class="font-display text-display text-primary dark:text-primary-fixed-dim shrink-0">
+            ICANG VERSE
+        </div>
+<nav class="hidden md:flex items-center gap-md">
+<a class="text-primary font-label-bold border-b-2 border-primary pb-1 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Home</a>
+<a class="text-on-surface-variant font-body-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Projects</a>
+<a class="text-on-surface-variant font-body-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Experiments</a>
+<a class="text-on-surface-variant font-body-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Notes</a>
+<a class="text-on-surface-variant font-body-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">Tools</a>
+<a class="text-on-surface-variant font-body-md hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_#221a15] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" href="#">About</a>
 </nav>
-<main class="flex-grow max-w-7xl mx-auto w-full px-container-margin py-section-gap flex flex-col gap-section-gap">
-<!-- 1. Hero Section -->
-<section class="relative min-h-[618px] flex flex-col md:flex-row items-center gap-8 justify-center">
-<div class="relative w-full md:w-1/2 flex flex-col gap-6 z-10">
-<div class="bg-primary-container inline-block w-max px-4 py-2 rounded-full neo-border neo-shadow sticker-rotate-minus-2 font-label-bold text-label-bold text-on-primary-container">
-                    👋 HELLO!
-                </div>
-<h1 class="font-display-lg text-display-lg text-on-background relative">
-                    Hi, I'm Icang!
-                    <span class="absolute -bottom-2 left-0 w-32 h-4 bg-tertiary-container -z-10 rounded-full mix-blend-multiply"></span>
-</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
-                    I like building things, trying weird ideas, and figuring out why they don't work.
-                </p>
-<button class="bg-tertiary-container text-on-tertiary-container font-headline-md text-headline-md px-8 py-4 rounded-xl neo-border neo-shadow-lg btn-neo w-max flex items-center gap-2 mt-4 sticker-rotate-1">
-                    Explore My Stuff <span class="material-symbols-outlined">arrow_forward</span>
+<div class="flex items-center gap-sm">
+<button class="hidden md:flex font-label-bold text-label-bold sticker-btn px-sm py-xs bg-primary-container text-on-primary-container rounded">Login</button>
+<button class="md:hidden flex items-center justify-center w-10 h-10 sticker-btn bg-surface-variant rounded-full">
+<span class="material-symbols-outlined text-on-surface">menu</span>
 </button>
 </div>
-<div class="relative w-full md:w-1/2 h-96 mt-12 md:mt-0">
-<!-- Main Illustration Placeholder -->
-<div class="absolute inset-0 bg-secondary-container rounded-3xl neo-border neo-shadow-lg overflow-hidden flex items-center justify-center sticker-rotate-2 z-10">
-<img class="w-full h-full object-cover" data-alt="A playful, cartoon-style illustration of a student sitting at a messy digital workspace desk. The student has a laptop open, surrounded by colorful sticky notes, a coffee mug, and scattered papers. The background is a warm, light cream color with a neo-brutalist aesthetic, featuring bold outlines and flat vibrant accent colors. The lighting is bright and cheerful." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn22BPohjceNnEVMtCjHgsDBc05SJ7sO2r0vDIakkZbSSDYvIJIWXNalJhjoi8n_cdPMfvgmavTz8HHjLNrwSenDdqJxo8Cp-gNZ9sXWxrmQ1fa0H443c5lqlTFokT6SCioI7sulzkLMcLxAAPwyFBGlFxhInA209_4rUqWVryxISXO8yos3c3YopVXISjIVXIxRunu9prYlvQXDbWUtpFr3rHqHCFdNMGmHTBvc8xGfFBmPvYGXaq4w"/>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-xl overflow-hidden">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center min-h-[70vh] mb-xl relative">
+<div class="md:col-span-6 z-10 flex flex-col items-start gap-lg">
+<div class="sticker-card rotate-neg-2 bg-secondary-container p-sm inline-block transform origin-bottom-left">
+<span class="font-headline-md text-headline-md text-on-secondary-container">HELLO 👋</span>
 </div>
-<!-- Floating Stickers -->
-<div class="absolute top-4 -left-4 bg-error-container p-3 rounded-full neo-border neo-shadow z-20 animate-bounce" style="animation-duration: 3s;">
-<span class="font-label-bold text-label-bold">AI</span>
+<h1 class="font-display text-display md:text-[80px] md:leading-[1.1] text-on-surface tracking-tight max-w-2xl">
+                    Hi, I'm Icang!
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg sticker-card bg-surface p-md rotate-1">
+                    I like building things, trying weird ideas, and figuring out why they don't work.
+                </p>
+<div class="flex flex-wrap gap-md mt-sm">
+<button class="sticker-btn bg-primary-container text-on-primary-container px-lg py-sm rounded-lg font-label-bold text-label-bold flex items-center gap-base rotate-neg-1">
+                        Explore Projects
+                        <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<button class="sticker-btn bg-surface-variant text-on-surface px-lg py-sm rounded-lg font-label-bold text-label-bold flex items-center gap-base rotate-1">
+                        Explore Experiments
+                        <span class="material-symbols-outlined">science</span>
+</button>
 </div>
-<div class="absolute bottom-12 -right-4 bg-primary-container p-3 rounded-full neo-border neo-shadow z-20 sticker-rotate-minus-2">
-<span class="font-label-bold text-label-bold">WEB</span>
 </div>
-<div class="absolute -top-6 right-12 bg-tertiary-container p-3 rounded-full neo-border neo-shadow z-20 sticker-rotate-1">
-<span class="font-label-bold text-label-bold">3D</span>
+<div class="md:col-span-6 relative mt-xl md:mt-0 flex justify-center items-center">
+<div class="sticker-card p-xs bg-white rotate-2 w-full max-w-[500px] aspect-square relative z-10">
+<img alt="Icang sitting at a desk with a laptop, coffee, and floating icons in a doodle style" class="w-full h-full object-cover border-2 border-on-surface" src="https://lh3.googleusercontent.com/aida/AEtjO1U7Mn2T47Z7HinNadM2aVCUjAizCeIjP0SV2zhnK88ciOcSiukdsiBrHCuS6lXtUulObVc1OJFaUG3HBohzWVRoIma7p6FYqZbDfJMsFHRKm16hPjayJyN-IWwkIZcnvUZI0mSflrg6dPBzrqwcqD3Q0VKefjObP-t_ymOAVvcdmvjUwrJdyDulEyPyVBpfg93SmIgh6TezSDw06R8Z_075OsA44psskYYRaUuT97NMbgEc6z7hfI7GnYk"/>
+<!-- Decorative pin -->
+<div class="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-tertiary border-2 border-on-surface shadow-[2px_2px_0px_0px_#221a15] z-20"></div>
+</div>
+<!-- Floating background elements (Doodles) -->
+<div class="absolute -top-10 -right-10 w-24 h-24 sticker-card bg-secondary-fixed rounded-full flex items-center justify-center rotate-neg-2 z-0 animate-bounce" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-4xl text-on-secondary-fixed">code</span>
+</div>
+<div class="absolute bottom-10 -left-10 w-20 h-20 sticker-card bg-tertiary-container rounded-lg flex items-center justify-center rotate-12 z-20">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container">lightbulb</span>
 </div>
 </div>
 </section>
-<!-- 2. Currently Building -->
-<section class="bg-surface-container-high rounded-3xl p-8 neo-border neo-shadow-lg relative mt-12">
-<!-- Pin -->
-<div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-error rounded-full neo-border neo-shadow z-10"></div>
-<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-8 text-center flex items-center justify-center gap-2">
-                Currently Building <span class="material-symbols-outlined">handyman</span>
-</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Sticky Note 1 -->
-<div class="bg-primary-container p-6 rounded-xl neo-border neo-shadow sticker-rotate-2 flex flex-col gap-4 h-64 hover:-translate-y-2 transition-transform">
+<div class="wobbly-line"></div>
+<!-- Currently Building Section -->
+<section class="my-xl">
+<div class="flex items-center gap-md mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface bg-tertiary-container text-on-tertiary-container px-md py-sm sticker-card inline-block rotate-neg-1">
+                    Currently Building 🛠️
+                </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mt-md">
+<!-- Card 1 -->
+<div class="sticker-card bg-surface-container-high p-lg flex flex-col gap-sm relative rotate-1 hover:rotate-0 transition-transform">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-tertiary/50 backdrop-blur-sm shadow-sm border border-on-surface/20 transform rotate-2"></div>
 <div class="flex justify-between items-start">
-<span class="bg-surface px-3 py-1 rounded-full text-xs font-label-bold neo-border border-dashed">BUILDING</span>
-<span class="material-symbols-outlined">eco</span>
+<span class="material-symbols-outlined text-primary text-3xl">nature</span>
+<span class="bg-primary-container text-on-primary-container px-sm py-xs rounded-full font-label-sm text-label-sm border border-on-surface">Building</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-on-primary-container">Plant Disease Detection</h3>
-<div class="mt-auto pt-4 border-t-2 border-on-primary-container border-dashed">
-<div class="w-full h-4 bg-surface rounded-full neo-border overflow-hidden">
-<div class="h-full bg-secondary w-3/4"></div>
+<h3 class="font-headline-md text-headline-md mt-sm text-on-surface">Plant Disease Detection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs line-clamp-3">
+                        Using computer vision to help farmers identify crop issues early. Because plants can't talk.
+                    </p>
 </div>
-</div>
-</div>
-<!-- Sticky Note 2 -->
-<div class="bg-tertiary-container p-6 rounded-xl neo-border neo-shadow sticker-rotate-minus-1 flex flex-col gap-4 h-64 hover:-translate-y-2 transition-transform">
+<!-- Card 2 -->
+<div class="sticker-card bg-secondary-fixed p-lg flex flex-col gap-sm relative rotate-neg-2 hover:rotate-0 transition-transform mt-md md:mt-0">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-primary/50 backdrop-blur-sm shadow-sm border border-on-surface/20 transform -rotate-1"></div>
 <div class="flex justify-between items-start">
-<span class="bg-surface px-3 py-1 rounded-full text-xs font-label-bold neo-border border-dashed">TESTING</span>
-<span class="material-symbols-outlined">dashboard</span>
+<span class="material-symbols-outlined text-secondary text-3xl">dashboard</span>
+<span class="bg-surface text-on-surface px-sm py-xs rounded-full font-label-sm text-label-sm border border-on-surface">Testing</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-on-tertiary-container">Minecraft Dashboard</h3>
-<div class="mt-auto pt-4 border-t-2 border-on-tertiary-container border-dashed">
-<div class="w-full h-4 bg-surface rounded-full neo-border overflow-hidden">
-<div class="h-full bg-primary w-11/12"></div>
+<h3 class="font-headline-md text-headline-md mt-sm text-on-surface">Minecraft Dashboard</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs line-clamp-3">
+                        A real-time telemetry dashboard for server admins. Too many creepers blowing up spawn.
+                    </p>
 </div>
-</div>
-</div>
-<!-- Sticky Note 3 -->
-<div class="bg-secondary-container p-6 rounded-xl neo-border neo-shadow sticker-rotate-1 flex flex-col gap-4 h-64 hover:-translate-y-2 transition-transform">
+<!-- Card 3 -->
+<div class="sticker-card bg-[#e6f4f1] p-lg flex flex-col gap-sm relative rotate-1 hover:rotate-0 transition-transform mt-lg md:mt-0">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-secondary/50 backdrop-blur-sm shadow-sm border border-on-surface/20 transform rotate-3"></div>
 <div class="flex justify-between items-start">
-<span class="bg-surface px-3 py-1 rounded-full text-xs font-label-bold neo-border border-dashed">BUILDING</span>
-<span class="material-symbols-outlined">smart_toy</span>
+<span class="material-symbols-outlined text-[#2b7a78] text-3xl">smart_toy</span>
+<span class="bg-[#def2f1] text-[#17252a] px-sm py-xs rounded-full font-label-sm text-label-sm border border-on-surface">Learning</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-on-secondary-container">ICANG AI</h3>
-<div class="mt-auto pt-4 border-t-2 border-on-secondary-container border-dashed">
-<div class="w-full h-4 bg-surface rounded-full neo-border overflow-hidden">
-<div class="h-full bg-tertiary w-1/2"></div>
+<h3 class="font-headline-md text-headline-md mt-sm text-on-surface">ICANG AI</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs line-clamp-3">
+                        Training a small language model on my own notes to see if it becomes as disorganized as I am.
+                    </p>
 </div>
 </div>
+</section>
+<div class="wobbly-line"></div>
+<!-- Stuff I've Made Section -->
+<section class="my-xl pb-xl">
+<div class="flex items-center gap-md mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface bg-surface-tint text-on-primary px-md py-sm sticker-card inline-block rotate-1">
+                    Stuff I've Made 🚀
+                </h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md mt-md">
+<!-- Project Sticker 1 -->
+<div class="sticker-card bg-surface p-md rotate-neg-2 flex flex-col items-center justify-center text-center gap-sm aspect-square hover:bg-surface-variant cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-error-container border-2 border-on-surface flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-error-container text-3xl">bug_report</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface mt-sm">Bug Tracker</h4>
+</div>
+<!-- Project Sticker 2 -->
+<div class="sticker-card bg-surface p-md rotate-2 flex flex-col items-center justify-center text-center gap-sm aspect-square hover:bg-surface-variant cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-secondary-container border-2 border-on-surface flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container text-3xl">palette</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface mt-sm">CSS Art</h4>
+</div>
+<!-- Project Sticker 3 -->
+<div class="sticker-card bg-surface p-md rotate-neg-1 flex flex-col items-center justify-center text-center gap-sm aspect-square hover:bg-surface-variant cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-tertiary-container border-2 border-on-surface flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-tertiary-container text-3xl">terminal</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface mt-sm">CLI Tools</h4>
+</div>
+<!-- Project Sticker 4 -->
+<div class="sticker-card bg-surface p-md rotate-1 flex flex-col items-center justify-center text-center gap-sm aspect-square hover:bg-surface-variant cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-primary-container border-2 border-on-surface flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container text-3xl">api</span>
+</div>
+<h4 class="font-label-bold text-label-bold text-on-surface mt-sm">Weird APIs</h4>
 </div>
 </div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-on-background dark:bg-on-background text-surface dark:text-surface font-body-md text-body-md full-width bottom-0 border-t-2 border-on-background flat no shadows w-full py-section-gap px-container-margin mt-section-gap flex flex-col items-center gap-base relative z-10 md:ml-64 w-auto">
-<div class="font-display-lg text-headline-md text-primary-container mb-4">ICANG HUB</div>
-<p>Built while learning... © ICANG</p>
-<div class="flex gap-4 mt-4">
-<a class="text-surface-variant hover:text-secondary-fixed transition-colors hover:-rotate-1 transition-transform p-2 border-2 border-surface-variant rounded-full" href="#">GitHub</a>
-<a class="text-surface-variant hover:text-secondary-fixed transition-colors hover:-rotate-1 transition-transform p-2 border-2 border-surface-variant rounded-full" href="#">Twitter</a>
-<a class="text-surface-variant hover:text-secondary-fixed transition-colors hover:-rotate-1 transition-transform p-2 border-2 border-surface-variant rounded-full" href="#">Discord</a>
+<footer class="bg-surface-container-highest dark:bg-surface-container w-full border-t-2 border-on-surface mt-xl py-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="font-label-bold text-label-bold text-on-surface">
+            ICANG
+        </div>
+<div class="font-body-md text-body-md italic text-tertiary dark:text-tertiary-fixed-dim">
+            Built with chaotic energy by ICANG
+        </div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Privacy</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Contact</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">RSS</a>
 </div>
 </footer>
 </body></html>
