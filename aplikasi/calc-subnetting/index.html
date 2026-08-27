@@ -1,457 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Subnetting</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Courier New', monospace;
-    background: #0d1117;
-    color: #c9d1d9;
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-  h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #58a6ff;
-    letter-spacing: 2px;
-    margin-bottom: 0.25rem;
-    text-transform: uppercase;
-  }
-  .subtitle {
-    text-align: center;
-    font-size: 0.75rem;
-    color: #8b949e;
-    margin-bottom: 2rem;
-    letter-spacing: 1px;
-  }
-  .container { max-width: 720px; margin: 0 auto; }
-
-  /* Input panel */
-  .panel {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .panel-title {
-    font-size: 0.7rem;
-    color: #58a6ff;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #21262d;
-    padding-bottom: 0.5rem;
-  }
-  .input-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    margin-bottom: 1rem;
-  }
-  .field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px; }
-  label { font-size: 0.7rem; color: #8b949e; letter-spacing: 1px; text-transform: uppercase; }
-  input {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: #e6edf3;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  input:focus { border-color: #58a6ff; }
-  input::placeholder { color: #484f58; }
-
-  .btn-add {
-    background: #21262d;
-    border: 1px solid #30363d;
-    color: #c9d1d9;
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    white-space: nowrap;
-    height: 40px;
-  }
-  .btn-add:hover { background: #30363d; border-color: #58a6ff; color: #58a6ff; }
-
-  .host-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
-  .host-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #0d1117;
-    border: 1px solid #21262d;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 0.85rem;
-  }
-  .host-item .name { color: #79c0ff; }
-  .host-item .count { color: #56d364; font-weight: 700; }
-  .host-item .remove {
-    background: none;
-    border: none;
-    color: #8b949e;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0 4px;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-  .host-item .remove:hover { color: #f85149; }
-
-  .btn-calc {
-    width: 100%;
-    background: #1f6feb;
-    border: none;
-    color: #fff;
-    border-radius: 6px;
-    padding: 12px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 1px;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .btn-calc:hover { background: #388bfd; }
-  .btn-calc:active { transform: scale(0.98); }
-
-  /* Results */
-  .results { display: flex; flex-direction: column; gap: 1rem; }
-  .result-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .result-header {
-    background: #1c2128;
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #30363d;
-  }
-  .result-dept { color: #79c0ff; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
-  .result-badge {
-    background: #0d4a1a;
-    color: #56d364;
-    border-radius: 4px;
-    padding: 2px 8px;
-    font-size: 0.75rem;
-    border: 1px solid #1a7f37;
-  }
-  .result-body { padding: 1rem 1.25rem; }
-
-  /* Binary row */
-  .binary-row {
-    font-size: 0.78rem;
-    color: #8b949e;
-    margin-bottom: 1rem;
-    line-height: 1.8;
-  }
-  .binary-row span.octet-sep { color: #30363d; }
-  .bit-header {
-    display: flex;
-    gap: 0;
-    margin-bottom: 2px;
-    padding-left: 4px;
-  }
-  .bit-cell {
-    width: 22px;
-    text-align: center;
-    font-size: 0.65rem;
-    color: #484f58;
-  }
-  .bits-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    align-items: center;
-  }
-  .bit-on  { color: #58a6ff; font-weight: 700; width: 22px; text-align: center; display: inline-block; }
-  .bit-off { color: #56d364; font-weight: 700; width: 22px; text-align: center; display: inline-block; }
-  .dot { color: #8b949e; width: 10px; text-align: center; display: inline-block; }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 10px;
-    background: #0d1117;
-    border-radius: 5px;
-    border: 1px solid #21262d;
-  }
-  .info-label { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
-  .info-value { font-size: 0.85rem; color: #e6edf3; font-weight: 700; }
-  .info-value.net { color: #ff7b72; }
-  .info-value.start { color: #56d364; }
-  .info-value.end { color: #56d364; }
-  .info-value.bcast { color: #f0883e; }
-  .info-value.mask { color: #79c0ff; }
-  .info-value.bits { color: #d2a8ff; }
-  .info-value.usable { color: #56d364; }
-
-  .usable-bar {
-    margin-top: 10px;
-    background: #0d1117;
-    border-radius: 4px;
-    padding: 6px 10px;
-    border: 1px solid #21262d;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.75rem;
-    color: #8b949e;
-  }
-  .bar-bg {
-    flex: 1;
-    background: #21262d;
-    border-radius: 3px;
-    height: 6px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    background: linear-gradient(90deg, #1f6feb, #56d364);
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.5s ease;
-  }
-
-  .empty { color: #484f58; font-size: 0.85rem; text-align: center; padding: 2rem; }
-  .error { color: #f85149; font-size: 0.8rem; margin-top: 6px; }
-
-  @media (max-width: 500px) {
-    .info-grid { grid-template-columns: 1fr; }
-    .input-row { flex-direction: column; }
-  }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>⬛ Subnet Calculator</h1>
-  <p class="subtitle">VLSM — Variable Length Subnet Masking</p>
-
-  <div class="panel">
-    <div class="panel-title">▶ Konfigurasi Jaringan</div>
-    <div class="input-row">
-      <div class="field">
-        <label>Start IP (Network Address)</label>
-        <input type="text" id="startIp" placeholder="Contoh: 192.168.1.0" value="192.168.1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subnet Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="topbar">
+        <div class="title-wrap">
+          <span class="kicker">Network utility</span>
+          <h1>Subnet Calculator</h1>
+        </div>
+        <div class="status-pill">VLSM</div>
       </div>
-    </div>
-    <div id="ipError" class="error" style="display:none;"></div>
 
-    <div class="panel-title" style="margin-top:1rem;">▶ Tambah Departemen / Jaringan</div>
-    <div class="input-row">
-      <div class="field">
-        <label>Nama Departemen</label>
-        <input type="text" id="deptName" placeholder="Contoh: Umum">
-      </div>
-      <div class="field" style="max-width:130px;">
-        <label>Jumlah Host</label>
-        <input type="number" id="hostCount" placeholder="Contoh: 9" min="1" max="65534">
-      </div>
-      <button class="btn-add" onclick="addDept()">+ Tambah</button>
-    </div>
-    <div id="addError" class="error" style="display:none;"></div>
+      <main class="panel">
+        <div class="section-header">
+          <h2>Konfigurasi Jaringan</h2>
+        </div>
 
-    <div class="host-list" id="hostList"></div>
-
-    <button class="btn-calc" onclick="calculate()">▶ HITUNG SUBNETTING</button>
-  </div>
-
-  <div class="results" id="results">
-    <div class="empty">Tambahkan departemen lalu klik hitung untuk melihat hasil.</div>
-  </div>
-</div>
-
-<script>
-let departments = [];
-
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 3000);
-}
-
-function validateIP(ip) {
-  const parts = ip.trim().split('.');
-  if (parts.length !== 4) return false;
-  return parts.every(p => {
-    const n = parseInt(p);
-    return !isNaN(n) && n >= 0 && n <= 255 && String(n) === p;
-  });
-}
-
-function ipToNum(ip) {
-  return ip.split('.').reduce((acc, o) => (acc << 8) + parseInt(o), 0) >>> 0;
-}
-
-function numToIp(num) {
-  return [24,16,8,0].map(s => (num >>> s) & 255).join('.');
-}
-
-function addDept() {
-  const name = document.getElementById('deptName').value.trim();
-  const count = parseInt(document.getElementById('hostCount').value);
-  if (!name) return showError('addError', '✗ Masukkan nama departemen.');
-  if (!count || count < 1 || count > 65534) return showError('addError', '✗ Jumlah host harus antara 1–65534.');
-  departments.push({ name, count });
-  renderList();
-  document.getElementById('deptName').value = '';
-  document.getElementById('hostCount').value = '';
-}
-
-function removeDept(i) {
-  departments.splice(i, 1);
-  renderList();
-}
-
-function renderList() {
-  const list = document.getElementById('hostList');
-  list.innerHTML = departments.length === 0 ? '' :
-    departments.map((d, i) => `
-      <div class="host-item">
-        <span class="name">${d.name}</span>
-        <span class="count">${d.count} host</span>
-        <button class="remove" onclick="removeDept(${i})" title="Hapus">✕</button>
-      </div>`).join('');
-}
-
-function ipClassPrefix(ip) {
-  const first = parseInt(ip.split('.')[0]);
-  if (first >= 1 && first <= 126) return 8;
-  if (first >= 128 && first <= 191) return 16;
-  return 24;
-}
-
-function nextPow2(n) {
-  let p = 1;
-  while (p - 2 < n) p *= 2;
-  return p;
-}
-
-function subnetInfo(hostCount) {
-  const blockSize = nextPow2(hostCount + 2);
-  const hostBits = Math.log2(blockSize);
-  const usable = blockSize - 2;
-  return { blockSize, hostBits, usable };
-}
-
-function toBinaryOctet(n) {
-  return n.toString(2).padStart(8, '0');
-}
-
-function renderBinaryMask(prefix) {
-  const totalBits = 32;
-  let bits = '';
-  for (let i = 0; i < totalBits; i++) {
-    if (i > 0 && i % 8 === 0) bits += `<span class="dot">.</span>`;
-    if (i < prefix) {
-      bits += `<span class="bit-on">1</span>`;
-    } else {
-      bits += `<span class="bit-off">x</span>`;
-    }
-  }
-  return `<div class="bits-display">${bits}</div>`;
-}
-
-function calculate() {
-  const ipRaw = document.getElementById('startIp').value.trim();
-  if (!validateIP(ipRaw)) return showError('ipError', '✗ Format IP tidak valid. Contoh: 192.168.1.0');
-  if (departments.length === 0) return showError('addError', '✗ Tambahkan minimal 1 departemen.');
-
-  const sorted = [...departments].sort((a, b) => b.count - a.count);
-  const classPrefix = ipClassPrefix(ipRaw);
-  let currentIp = ipToNum(ipRaw);
-
-  const cards = sorted.map((dept, idx) => {
-    const { blockSize, hostBits, usable } = subnetInfo(dept.count);
-    const prefix = 32 - hostBits;
-    const networkNum = currentIp;
-    const firstHost = currentIp + 1;
-    const broadcast = currentIp + blockSize - 1;
-    const lastHost = broadcast - 1;
-
-    // subnet mask
-    const maskNum = prefix === 0 ? 0 : (0xFFFFFFFF << (32 - prefix)) >>> 0;
-    const maskStr = numToIp(maskNum);
-
-    currentIp += blockSize;
-
-    const pct = Math.round((dept.count / usable) * 100);
-
-    // bit header for last octet (or relevant octets)
-    const bitVals = [128,64,32,16,8,4,2,1];
-    const bitHeader = `<div class="bit-header">${bitVals.map(v=>`<span class="bit-cell">${v}</span>`).join('')}</div>`;
-
-    return `
-    <div class="result-card">
-      <div class="result-header">
-        <span class="result-dept">${String(idx+1).padStart(2,'0')}. ${dept.name}</span>
-        <span class="result-badge">${dept.count} host diminta</span>
-      </div>
-      <div class="result-body">
-        <div class="binary-row">
-          <div style="margin-bottom:4px; font-size:0.7rem; color:#8b949e; letter-spacing:1px;">SUBNET MASK BINARY (/${prefix}):</div>
-          ${bitHeader}
-          ${renderBinaryMask(prefix)}
-          <div style="margin-top:6px; font-size:0.72rem; color:#484f58;">
-            Bit jaringan = <span style="color:#58a6ff">${prefix}</span> &nbsp;|&nbsp;
-            Bit host = <span style="color:#56d364">${hostBits}</span> &nbsp;|&nbsp;
-            Total blok = <span style="color:#d2a8ff">${blockSize}</span> &nbsp;|&nbsp;
-            IP usable = <span style="color:#56d364">${usable}</span>
+        <div class="form-grid">
+          <div class="field">
+            <label for="startIp">Start IP (Network Address)</label>
+            <input type="text" id="startIp" placeholder="Contoh: 192.168.1.0" value="192.168.1.0" />
           </div>
         </div>
-        <div class="info-grid">
-          <div class="info-row"><span class="info-label">IP Network</span><span class="info-value net">${numToIp(networkNum)} /${prefix}</span></div>
-          <div class="info-row"><span class="info-label">Subnet Mask</span><span class="info-value mask">${maskStr}</span></div>
-          <div class="info-row"><span class="info-label">IP Awal (Host)</span><span class="info-value start">${numToIp(firstHost)} /${prefix}</span></div>
-          <div class="info-row"><span class="info-label">IP Akhir (Host)</span><span class="info-value end">${numToIp(lastHost)} /${prefix}</span></div>
-          <div class="info-row"><span class="info-label">IP Broadcast</span><span class="info-value bcast">${numToIp(broadcast)}</span></div>
-          <div class="info-row"><span class="info-label">Host Usable</span><span class="info-value usable">${usable} IP</span></div>
-        </div>
-        <div class="usable-bar">
-          <span>Efisiensi</span>
-          <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
-          <span>${dept.count}/${usable} = ${pct}%</span>
-        </div>
-      </div>
-    </div>`;
-  });
 
-  document.getElementById('results').innerHTML = `
-    <div style="font-size:0.7rem; color:#8b949e; letter-spacing:1px; margin-bottom:4px; text-transform:uppercase;">
-      ▶ Hasil Subnetting — Sorted by host (terbesar → terkecil) — Start IP: ${ipRaw}
+        <div id="ipError" class="error" aria-live="polite"></div>
+
+        <div class="section-header" style="margin-top: 24px;">
+          <h2>Tambah Departemen / Jaringan</h2>
+        </div>
+
+        <div class="input-row">
+          <div class="field large">
+            <label for="deptName">Nama Departemen</label>
+            <input type="text" id="deptName" placeholder="Contoh: Umum" />
+          </div>
+
+          <div class="field small">
+            <label for="hostCount">Jumlah Host</label>
+            <input type="number" id="hostCount" placeholder="Contoh: 9" min="1" max="65534" />
+          </div>
+
+          <button type="button" class="btn btn-secondary" id="addDeptBtn">+ Tambah</button>
+        </div>
+
+        <div id="addError" class="error" aria-live="polite"></div>
+
+        <div class="host-list" id="hostList"></div>
+
+        <button type="button" class="btn btn-primary" id="calculateBtn" style="width:100%;">Hitung Subnetting</button>
+      </main>
+
+      <section class="results" id="results">
+        <div class="empty">Tambahkan departemen lalu klik hitung untuk melihat hasil.</div>
+      </section>
     </div>
-    ${cards.join('')}`;
-}
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    const focused = document.activeElement;
-    if (focused.id === 'deptName' || focused.id === 'hostCount') addDept();
-  }
-});
-</script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
