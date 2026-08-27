@@ -1,87 +1,320 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Portofolio personal kreatif dan profesional.">
-	<title>Alexandra — Creative Portfolio</title>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-		:root { --bg:#090a0d; --card:#14161b; --text:#f5f3ef; --muted:#989ba8; --accent:#c8ff42; --line:#292d35; }
-		* { box-sizing:border-box; margin:0; padding:0; }
-		html { scroll-behavior:smooth; }
-		body { background:radial-gradient(circle at 85% 5%,#202b1c55,transparent 28%),var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; line-height:1.6; overflow-x:hidden; }
-		body:before { content:''; position:fixed; width:500px; height:500px; border-radius:50%; background:var(--accent); opacity:.07; filter:blur(130px); top:-180px; right:-100px; pointer-events:none; }
-		a { color:inherit; text-decoration:none; }
-		.wrap { width:min(1120px, calc(100% - 48px)); margin:auto; }
-		nav { display:flex; justify-content:space-between; align-items:center; padding:28px 0; position:relative; z-index:5; }
-		.logo { font:700 1.25rem 'Space Grotesk'; letter-spacing:-1px; }
-		.logo span { color:var(--accent); }
-		.links { display:flex; gap:32px; color:var(--muted); font-size:.9rem; }
-		.links a:hover { color:var(--accent); }
-		.menu { display:none; background:none; border:0; color:white; font-size:1.5rem; cursor:pointer; }
-		.hero { min-height:calc(100vh - 90px); display:flex; align-items:center; padding:70px 0 110px; }
-		.eyebrow { color:var(--accent); font-size:.8rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:20px; }
-		h1 { max-width:850px; font:600 clamp(3.2rem, 8vw, 7rem)/.98 'Space Grotesk'; letter-spacing:-6px; text-wrap:balance; }
-		h1 em { color:var(--accent); font-style:normal; }
-		.hero-bottom { display:flex; justify-content:space-between; align-items:end; gap:35px; margin-top:48px; }
-		.intro { max-width:410px; color:var(--muted); font-size:1.05rem; }
-		.button { display:inline-flex; align-items:center; gap:12px; background:var(--accent); color:#0b0b0f; padding:15px 21px; border-radius:4px; font-weight:700; transition:.25s; }
-		.button:hover { transform:translateY(-4px); box-shadow:0 10px 30px #c8ff4230; }
-		section { padding:105px 0; border-top:1px solid var(--line); }
-		.section-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:42px; }
-		h2 { font:600 clamp(2rem,4vw,3.5rem) 'Space Grotesk'; letter-spacing:-2px; }
-		.number { color:var(--accent); font:700 1rem 'Space Grotesk'; }
-		.projects { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
-		.project { min-height:370px; background:linear-gradient(145deg,#181b21,#111216); padding:30px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; border:1px solid transparent; transition:.3s; }
-		.project:hover { border-color:var(--accent); transform:translateY(-6px); }
-		.project:after { content:'↗'; position:absolute; top:25px; right:30px; font-size:2rem; color:var(--accent); }
-		.visual { height:180px; margin:-30px -30px 28px; background:linear-gradient(135deg,#22262b,#9cc73d); position:relative; }
-		.visual.two { background:linear-gradient(135deg,#34213d,#ff8666); }
-		.visual.three { background:linear-gradient(135deg,#1d4650,#55d6bc); }
-		.visual.four { background:linear-gradient(135deg,#3d3320,#e3b465); }
-		.visual:before { content:''; position:absolute; width:130px; height:130px; border:18px solid #ffffff35; border-radius:50%; top:25px; left:45%; }
-		.project small { color:var(--accent); text-transform:uppercase; letter-spacing:1px; }
-		.project h3 { font:600 1.7rem 'Space Grotesk'; margin-top:7px; }
-		.project p { color:var(--muted); }
-		.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
-		.about-copy { color:var(--muted); font-size:1.2rem; }
-		.about-copy strong { color:var(--text); }
-		.skills { display:flex; flex-wrap:wrap; gap:10px; align-content:start; }
-		.skill { border:1px solid var(--line); padding:12px 16px; border-radius:30px; color:var(--muted); }
-		.contact { display:flex; justify-content:space-between; align-items:end; gap:30px; }
-		.contact h2 { max-width:650px; }
-		.contact h2 span { color:var(--accent); }
-		footer { padding:28px 0; color:var(--muted); font-size:.85rem; display:flex; justify-content:space-between; border-top:1px solid var(--line); }
-		.reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s ease; }
-		.reveal.visible { opacity:1; transform:none; }
-		@media(max-width:700px) { .wrap { width:min(100% - 32px,1120px); } .links { display:none; position:absolute; top:76px; right:0; flex-direction:column; gap:0; min-width:150px; padding:8px; background:#17191f; border:1px solid var(--line); border-radius:8px; box-shadow:0 15px 35px #0008; } .links.open { display:flex; } .links a { padding:10px 12px; } .menu { display:block; } h1 { letter-spacing:-3px; } .hero-bottom,.contact { align-items:start; flex-direction:column; } .projects,.about-grid { grid-template-columns:1fr; } .about-grid { gap:35px; } section { padding:75px 0; } footer { gap:12px; flex-direction:column; } }
-	</style>
-</head>
-<body>
-	<div class="wrap">
-		<nav><a class="logo" href="#">ALEX<span>.</span></a><div class="links"><a href="#work">Karya</a><a href="#about">Tentang</a><a href="#contact">Kontak</a></div><button class="menu" aria-label="Buka menu" aria-expanded="false">☰</button></nav>
-		<main>
-			<section class="hero" style="border:0">
-				<div><div class="eyebrow">✦ Designer & Creative Developer</div><h1>Mengubah ide menjadi <em>pengalaman</em> digital.</h1><div class="hero-bottom"><p class="intro">Halo, saya Alexandra. Saya membantu brand dan individu tampil lebih berani melalui desain yang bermakna dan teknologi yang intuitif.</p><a class="button" href="#work">Lihat karya <span>↘</span></a></div></div>
-			</section>
-			<section id="work"><div class="section-head"><h2>Karya pilihan</h2><span class="number">01 / 03</span></div><div class="projects">
-				<a class="project" href="#"><div><div class="visual"></div><small>Branding · Digital</small><h3>Verdant — Living better</h3></div><p>Identitas visual untuk platform gaya hidup berkelanjutan.</p></a>
-				<a class="project" href="#"><div><div class="visual two"></div><small>Web Design · 2024</small><h3>Monument Studio</h3></div><p>Website editorial untuk studio arsitektur kontemporer.</p></a>
-				<a class="project" href="#"><div><div class="visual three"></div><small>Product · UX/UI</small><h3>Flow Finance</h3></div><p>Pengalaman finansial yang sederhana untuk generasi baru.</p></a>
-				<a class="project" href="#"><div><div class="visual four"></div><small>Campaign · Art Direction</small><h3>After Hours</h3></div><p>Kampanye digital penuh energi untuk kolektif musik lokal.</p></a>
-			</div></section>
-			<section id="about"><div class="section-head"><h2>Tentang saya</h2><span class="number">02 / 03</span></div><div class="about-grid"><p class="about-copy">Saya percaya desain yang baik bukan hanya terlihat indah, tetapi juga terasa tepat. Selama <strong>6+ tahun</strong>, saya bekerja bersama startup, bisnis lokal, dan brand global untuk menciptakan solusi yang berdampak.</p><div class="skills"><span class="skill">Brand Strategy</span><span class="skill">UI/UX Design</span><span class="skill">Art Direction</span><span class="skill">Web Development</span><span class="skill">Motion Design</span></div></div></section>
-			<section id="contact"><div class="section-head"><h2>Mari buat sesuatu<br><span>yang berarti.</span></h2><span class="number">03 / 03</span></div><div class="contact"><p class="intro">Punya ide atau proyek menarik? Saya selalu terbuka untuk ngobrol.</p><a class="button" href="mailto:hello@alex.studio">hello@alex.studio ↗</a></div></section>
-		</main>
-		<footer><span>© 2024 Alexandra Studio</span><span>Jakarta · Indonesia</span></footer>
-	</div>
-	<script>
-		const menu = document.querySelector('.menu'), links = document.querySelector('.links');
-		menu.addEventListener('click', () => { const open = links.classList.toggle('open'); menu.setAttribute('aria-expanded', open); });
-		links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => links.classList.remove('open')));
-		const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'), { threshold:.12 }));
-		document.querySelectorAll('section, .project, footer').forEach(el => { el.classList.add('reveal'); observer.observe(el); });
-	</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Aplikasi</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+      :root {
+        --bg: #0b1020;
+        --bg-2: #121a2d;
+        --panel: rgba(18, 26, 45, 0.88);
+        --panel-strong: #1a2338;
+        --text: #edf4ff;
+        --muted: #a7b5d3;
+        --line: rgba(255,255,255,0.08);
+        --accent: #7c9cff;
+        --accent-2: #7ef0d8;
+        --accent-3: #f9d77a;
+        --shadow: rgba(7, 10, 18, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(124, 156, 255, 0.26), transparent 18%),
+          radial-gradient(circle at bottom right, rgba(126, 240, 216, 0.18), transparent 20%),
+          linear-gradient(135deg, var(--bg), var(--bg-2));
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        width: min(1100px, calc(100% - 32px));
+        margin: 32px auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 18px 22px;
+        background: rgba(15, 22, 38, 0.75);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 16px 38px var(--shadow);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #0d1320;
+        font-weight: 800;
+      }
+
+      .user-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px 8px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.02);
+      }
+
+      .user-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #ffd27d, #ff9f7a);
+        color: #1d1820;
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+
+      .user-name {
+        font-size: 0.8rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      main {
+        margin-top: 30px;
+        padding: 28px 24px 18px;
+        background: rgba(15, 22, 38, 0.7);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: 0 18px 44px var(--shadow);
+      }
+
+      .title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin-bottom: 26px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-2);
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.06em;
+      }
+
+      .subtext {
+        margin: 0;
+        color: var(--muted);
+        max-width: 560px;
+        line-height: 1.7;
+      }
+
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .app-card {
+        display: block;
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .app-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(124, 156, 255, 0.3);
+        box-shadow: 0 14px 28px rgba(124, 156, 255, 0.15);
+      }
+
+      .app-thumb {
+        height: 132px;
+        position: relative;
+        background: linear-gradient(135deg, rgba(124,156,255,0.85), rgba(126,240,216,0.75));
+      }
+
+      .app-thumb::before {
+        content: "";
+        position: absolute;
+        inset: 18px 22px;
+        border-radius: 18px;
+        background: rgba(10, 15, 28, 0.25);
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+
+      .app-thumb.alt-1 { background: linear-gradient(135deg, #ffb86a, #ff6f91); }
+      .app-thumb.alt-2 { background: linear-gradient(135deg, #7ef0d8, #5db7ff); }
+      .app-thumb.alt-3 { background: linear-gradient(135deg, #d7a7ff, #7c9cff); }
+
+      .app-content {
+        padding: 18px 18px 20px;
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        background: rgba(126, 240, 216, 0.12);
+        color: var(--accent-2);
+        border: 1px solid rgba(126, 240, 216, 0.2);
+      }
+
+      .app-name {
+        margin: 0 0 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .app-desc {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 0.94rem;
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1100px);
+          margin: 18px auto 28px;
+        }
+
+        header,
+        .title-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header {
+          padding: 16px 18px;
+        }
+
+        main {
+          padding: 22px 18px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">
+          <div class="brand-mark">I</div>
+          <span>ICANGVERSE</span>
+        </div>
+
+        <div class="user-box" aria-label="profil pengguna">
+          <div class="user-avatar">U</div>
+          <div class="user-name">User</div>
+        </div>
+      </header>
+
+      <main>
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">Menu aplikasi</p>
+            <h1>Daftar Aplikasi</h1>
+          </div>
+          <p class="subtext">Semua alat dan fitur yang sudah dibuat bisa dibuka langsung dari sini.</p>
+        </div>
+
+        <div class="app-grid">
+          <a class="app-card" href="aplikasi/cek-khodam/index.html">
+            <div class="app-thumb"></div>
+            <div class="app-content">
+              <div class="meta">
+                <span class="tag">Kustom</span>
+                <span class="tag">Web</span>
+              </div>
+              <h2 class="app-name">Cek Khodam</h2>
+              <p class="app-desc">Aplikasi untuk mengecek khodam dengan nama, elemen, dan setting khodam yang bisa diatur sendiri.</p>
+            </div>
+          </a>
+
+          <a class="app-card" href="#">
+            <div class="app-thumb alt-1"></div>
+            <div class="app-content">
+              <div class="meta">
+                <span class="tag">Segera</span>
+                <span class="tag">App</span>
+              </div>
+              <h2 class="app-name">Aplikasi Baru</h2>
+              <p class="app-desc">Template card siap pakai untuk aplikasi berikutnya yang akan ditambahkan ke menu ini.</p>
+            </div>
+          </a>
+
+          <a class="app-card" href="#">
+            <div class="app-thumb alt-2"></div>
+            <div class="app-content">
+              <div class="meta">
+                <span class="tag">Segera</span>
+                <span class="tag">UI</span>
+              </div>
+              <h2 class="app-name">Aplikasi Baru</h2>
+              <p class="app-desc">Ruang untuk menambahkan project berikutnya dengan tampilan konsisten dan modern.</p>
+            </div>
+          </a>
+
+          <a class="app-card" href="#">
+            <div class="app-thumb alt-3"></div>
+            <div class="app-content">
+              <div class="meta">
+                <span class="tag">Segera</span>
+                <span class="tag">Tool</span>
+              </div>
+              <h2 class="app-name">Aplikasi Baru</h2>
+              <p class="app-desc">Kartu tambahan untuk koleksi aplikasi yang sedang dikembangkan sesuai kebutuhan.</p>
+            </div>
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
