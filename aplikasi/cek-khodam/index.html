@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cek Khodam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Khusus untukmu</p>
+          <h1>Cek Khodam</h1>
+        </div>
+        <div class="badge">Custom</div>
+      </header>
+
+      <main class="app-grid">
+        <section class="panel panel-settings">
+          <div class="section-heading">
+            <span class="icon">✦</span>
+            <h2>Setting Khodam</h2>
+          </div>
+
+          <form id="khodamForm" class="khodam-form">
+            <div class="field-group">
+              <label for="khodamName">Nama Khodam</label>
+              <input id="khodamName" name="khodamName" type="text" placeholder="Contoh: Khodam Naga Emas" required />
+            </div>
+
+            <div class="field-grid">
+              <div class="field-group">
+                <label for="khodamSymbol">Simbol</label>
+                <input id="khodamSymbol" name="khodamSymbol" type="text" placeholder="🦅 / 🔥 / 🌊" maxlength="4" required />
+              </div>
+
+              <div class="field-group">
+                <label for="khodamElement">Elemen</label>
+                <input id="khodamElement" name="khodamElement" type="text" placeholder="Api, Air, Angin" required />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="khodamPower">Kekuatan Utama</label>
+              <input id="khodamPower" name="khodamPower" type="text" placeholder="Melindungi, Menerangi, Menyembuhkan" required />
+            </div>
+
+            <div class="field-group">
+              <label for="khodamDesc">Deskripsi</label>
+              <textarea id="khodamDesc" name="khodamDesc" rows="3" placeholder="Tuliskan sifat dan keunggulan khodam ini..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Tambah Khodam</button>
+              <button type="button" class="secondary-btn" id="resetKhodam">Reset Default</button>
+            </div>
+          </form>
+
+          <div class="list-head">
+            <h3>Daftar Khodam</h3>
+            <span id="khodamCount">0</span>
+          </div>
+          <ul id="khodamList" class="khodam-list" aria-live="polite"></ul>
+        </section>
+
+        <section class="panel panel-check">
+          <div class="section-heading">
+            <span class="icon">⚡</span>
+            <h2>Cek Karakter</h2>
+          </div>
+
+          <div class="check-form">
+            <div class="field-group">
+              <label for="namaUser">Nama Kamu</label>
+              <input id="namaUser" type="text" placeholder="Masukkan nama kamu" />
+            </div>
+
+            <div class="field-group">
+              <label for="focusSelect">Focus Khodam</label>
+              <select id="focusSelect">
+                <option value="perlindungan">Perlindungan</option>
+                <option value="kekuatan">Kekuatan</option>
+                <option value="intuisi">Intuisi</option>
+                <option value="penyembuhan">Penyembuhan</option>
+                <option value="kecerdasan">Kecerdasan</option>
+              </select>
+            </div>
+
+            <button id="cekBtn" class="primary-btn" type="button">Cek Khodam</button>
+          </div>
+
+          <div id="hasilKhodam" class="result-card empty">
+            <div class="result-placeholder">
+              <span>🔮</span>
+              <p>Belum ada hasil. Isi nama dan cek khodammu.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
