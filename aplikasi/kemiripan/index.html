@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Similarity Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Visual Search</p>
+          <h1>Image Similarity Finder</h1>
+        </div>
+        <div class="status-pill">Prototype</div>
+      </header>
+
+      <main class="app-grid">
+        <section class="panel left-panel">
+          <div class="panel-head">
+            <h2>Input Gambar</h2>
+          </div>
+
+          <div class="source-actions">
+            <label class="upload-btn">
+              <input id="uploadInput" type="file" accept="image/*" />
+              Upload Foto
+            </label>
+            <button id="cameraBtn" class="secondary-btn" type="button">Gunakan Kamera</button>
+          </div>
+
+          <div class="camera-box">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
+            <div class="camera-empty" id="cameraEmpty">
+              Kamera siap digunakan atau upload foto dari perangkat Anda.
+            </div>
+          </div>
+
+          <div class="capture-row">
+            <button id="captureBtn" class="primary-btn" type="button">Ambil Foto</button>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-header">
+              <span>Preview</span>
+              <span id="imageMeta">Belum ada gambar</span>
+            </div>
+            <img id="previewImage" alt="Preview hasil foto" />
+          </div>
+        </section>
+
+        <section class="panel right-panel">
+          <div class="panel-head">
+            <h2>Hasil Pencarian</h2>
+          </div>
+
+          <div class="search-meta" id="searchMeta">Belum ada pencarian.</div>
+
+          <div class="loading" id="loading" hidden>
+            <span class="loader"></span>
+            Mencari foto yang mirip...
+          </div>
+
+          <div id="resultGrid" class="result-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
