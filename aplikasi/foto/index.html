@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Booth Studio</title>
+    <link rel="icon" type="image/png" href="../../assets/images/pavicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">P</div>
+          <div>
+            <div class="brand-name">Photo Booth</div>
+            <small>Studio</small>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Preset</div>
+          <div class="preset-list" id="presetList">
+            <button class="preset active" data-preset="classic">Classic</button>
+            <button class="preset" data-preset="vivid">Vivid</button>
+            <button class="preset" data-preset="warm">Warm</button>
+            <button class="preset" data-preset="mono">Mono</button>
+            <button class="preset" data-preset="cinematic">Cinematic</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Filter</div>
+          <div class="filter-list" id="filterList">
+            <button class="filter active" data-filter="none">None</button>
+            <button class="filter" data-filter="contrast">Contrast</button>
+            <button class="filter" data-filter="sepia">Sepia</button>
+            <button class="filter" data-filter="grayscale">Grayscale</button>
+            <button class="filter" data-filter="saturate">Saturate</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Grid</div>
+          <div class="grid-picker" id="gridPicker">
+            <button class="grid active" data-grid="1">1 photo</button>
+            <button class="grid" data-grid="2">2 photo</button>
+            <button class="grid" data-grid="3">3 photo</button>
+            <button class="grid" data-grid="4">4 photo</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="studio">
+        <div class="topbar">
+          <div>
+            <div class="tiny-label">Create session</div>
+            <h1>Photo Booth</h1>
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <span>Live Preview</span>
+            <span id="selectedMeta">Preset: Classic • Filter: None</span>
+          </div>
+
+          <div class="preview-stage" id="previewStage">
+            <video id="cameraPreview" autoplay playsinline muted></video>
+            <img id="previewImage" alt="Preview foto" />
+            <div class="empty-preview" id="emptyPreview">Kamera siap digunakan. Tekan tombol Take Photo untuk menangkap gambar.</div>
+          </div>
+
+          <div class="preview-actions">
+            <button class="action-btn primary" id="captureBtn">Take Photo</button>
+            <button class="action-btn secondary" id="downloadBtn">Download</button>
+            <button class="action-btn secondary" id="resetBtn">Reset</button>
+          </div>
+        </div>
+
+        <div class="capture-card">
+          <div class="camera-frame">
+            <div class="photo-grid" id="photoGrid">
+              <div class="photo-slot selected" data-slot="0">
+                <div class="slot-label">Shot 1</div>
+              </div>
+              <div class="photo-slot" data-slot="1">
+                <div class="slot-label">Shot 2</div>
+              </div>
+              <div class="photo-slot" data-slot="2">
+                <div class="slot-label">Shot 3</div>
+              </div>
+              <div class="photo-slot" data-slot="3">
+                <div class="slot-label">Shot 4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <canvas id="captureCanvas" style="display:none"></canvas>
+    <script src="script.js"></script>
+  </body>
+</html>
