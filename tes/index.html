@@ -1,0 +1,424 @@
+<?php
+session_start();
+
+include "service/db.php";
+include "service/auth.php";
+
+$result = mysqli_query($conn,"
+SELECT
+    d.*,
+    COUNT(DISTINCT l.id) AS total_likes,
+    ROUND(AVG(r.rating),1) AS avg_rating
+FROM data d
+LEFT JOIN likes l
+    ON l.mod_id = d.id_unik
+LEFT JOIN ratings r
+    ON r.mod_id = d.id_unik
+GROUP BY d.id
+ORDER BY d.kategori ASC, d.date DESC
+");
+
+$mods = [];
+$categories = [];
+
+while($row = mysqli_fetch_assoc($result)){
+    $mods[] = $row;
+    if(!in_array($row['kategori'],$categories)){
+        $categories[] = $row['kategori'];
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICANG MOD HUB</title>
+<link rel="icon" href="assets/image/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0D0D;--bg2:#141414;--bg3:#1a1a1a;--bg4:#222;
+  --fg:#F5F5F0;--fg2:#aaa;--fg3:#555;
+  --yellow:#F5E642;--red:#FF3366;--green:#00F5A0;--purple:#8B5CF6;
+  --border:#2a2a2a;--radius:8px;--radius-lg:12px;
+}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:'Space Grotesk',sans-serif}
+input,select,textarea{font-family:'Space Grotesk',sans-serif;background:var(--bg3);border:1px solid var(--border);color:var(--fg);padding:10px 14px;border-radius:var(--radius);width:100%;font-size:14px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--yellow)}
+
+/* NAV */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--yellow);text-shadow:2px 2px 0 var(--red);letter-spacing:.05em}
+.nav-links{display:flex;gap:8px;align-items:center}
+.btn{padding:8px 18px;border-radius:var(--radius);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid;transition:all .2s;cursor:pointer}
+.btn-ghost{border-color:var(--border);background:transparent;color:var(--fg2)}
+.btn-ghost:hover{border-color:var(--yellow);color:var(--yellow)}
+.btn-primary{border-color:var(--yellow);background:var(--yellow);color:#000}
+.btn-primary:hover{background:transparent;color:var(--yellow)}
+.btn-danger{border-color:var(--red);background:transparent;color:var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-sm{padding:5px 12px;font-size:12px}
+
+/* HERO */
+.hero{text-align:center;padding:60px 24px 40px;border-bottom:1px solid var(--border)}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,6rem);line-height:.9;margin-bottom:12px}
+.hero h1 span:nth-child(1){color:var(--yellow)}
+.hero h1 span:nth-child(2){color:var(--red)}
+.hero p{color:var(--fg2);max-width:480px;margin:0 auto;font-size:15px}
+.search-bar{max-width:500px;margin:24px auto 0;position:relative}
+.search-bar input{padding-left:40px;background:var(--bg2);border-color:var(--border)}
+.search-bar .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--fg3)}
+
+/* CATEGORY TABS */
+.cat-tabs{display:flex;gap:8px;padding:20px 24px;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--fg2);font-size:13px;font-weight:500;white-space:nowrap;transition:all .2s;cursor:pointer}
+.cat-tab:hover,.cat-tab.active{border-color:var(--yellow);background:var(--yellow);color:#000}
+
+/* FILTER BAR wrapper */
+.filter-bar{border-bottom:1px solid var(--border)}
+
+/* CATEGORY TABS */
+.cat-tabs{
+  display:flex;gap:8px;padding:16px 24px 12px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.cat-tabs::-webkit-scrollbar{display:none}
+
+/* SORT BAR */
+.sort-bar{
+  display:flex;align-items:center;justify-content:flex-end;
+  padding:0 24px 12px;
+  position:relative; /* beri konteks untuk dropdown */
+  overflow:visible;
+}
+
+/* SORT WRAPPER — overflow:visible wajib */
+.sort-wrapper{position:relative;overflow:visible;margin-top:12px;}
+.sort-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--fg2);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.sort-btn:hover,.sort-btn.open{border-color:var(--yellow);color:var(--yellow)}
+.sort-btn .chevron{transition:transform .2s}
+.sort-btn.open .chevron{transform:rotate(180deg)}
+
+/* Dropdown — z-index tinggi, tanpa overflow clip di parent */
+.sort-dropdown{
+  position:absolute;right:0;top:calc(100% + 6px);
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);min-width:180px;
+  z-index:500;  /* lebih tinggi dari elemen lain */
+  display:none;
+}
+.sort-option{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;color:var(--fg2);cursor:pointer;transition:background .15s}
+.sort-option:hover{background:var(--bg3);color:var(--fg)}
+.sort-option.active{color:var(--yellow)}
+.sort-option .check{margin-left:auto;color:var(--yellow)}
+.sort-divider{height:1px;background:var(--border);margin:4px 0}
+.sort-label{padding:6px 14px;font-size:11px;color:var(--fg3);font-weight:600;letter-spacing:.06em;text-transform:uppercase} 
+    
+    
+/* MOD GRID */
+.mod-section{padding:24px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;color:var(--fg2);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+
+/* MOD CARD — seluruh card jadi link */
+.mod-card{
+  display:block;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .2s,transform .15s;
+  text-decoration:none;
+  color:inherit;
+}
+.mod-card:hover{
+  border-color:var(--yellow);
+  transform:translateY(-2px);
+}
+
+.mod-thumb{width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--fg3);font-size:2rem}
+.mod-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.mod-card:hover .mod-thumb img{transform:scale(1.04)}
+
+.mod-info{padding:12px}
+.mod-name{font-weight:600;font-size:14px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mod-meta{display:flex;justify-content:space-between;align-items:center}
+.mod-date{font-size:12px;color:var(--fg3)}
+.mod-cat-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bg4);color:var(--yellow);border:1px solid var(--border)}
+.mod-cat-rating{font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bg4);color:var(--red);border:1px solid var(--border)}
+
+/* USER AVATAR */
+.user-menu{display:flex;align-items:center;gap:8px}
+.user-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover;border:1px solid var(--border)}
+.user-name{font-size:13px;font-weight:600;color:var(--fg2);max-width:160px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:60px 24px;color:var(--fg3)}
+.empty i{font-size:3rem;margin-bottom:12px;display:block}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 20px;font-size:14px;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:var(--green);color:var(--green)}
+.toast.error{border-color:var(--red);color:var(--red)}
+
+/* ADMIN BAR */
+.admin-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:8px;align-items:center;height:44px}
+.admin-bar a{font-size:13px;font-weight:500;color:var(--fg2);padding:4px 10px;border-radius:6px;transition:all .2s;display:flex;align-items:center;gap:6px}
+.admin-bar a:hover{background:var(--bg3);color:var(--yellow)}
+
+@media(max-width:640px){
+  nav{padding:0 12px}
+  .nav-logo{font-size:1.3rem}
+  .hero{padding:40px 16px 24px}
+  .mod-section{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ICANG MOD HUB</div>
+  <div class="nav-links">
+    <?php if(empty($_SESSION['user'])): ?>
+      <a href="google-login.php" class="btn btn-primary btn-sm">
+        <i class="ti ti-brand-google"></i> Login
+      </a>
+    <?php else: ?>
+      <div class="user-menu">
+        <img
+          src="<?= htmlspecialchars($_SESSION['user']['picture']) ?>"
+          class="user-avatar"
+          alt="Profile">
+        <span class="user-name">
+          <?= htmlspecialchars($_SESSION['user']['name']) ?>
+        </span>
+      </div>
+      <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+    <?php endif; ?>
+  </div>
+</nav>
+
+<?php if(is_admin()): ?>
+<div class="admin-bar">
+  <a href="index.php"><i class="ti ti-home"></i> Beranda</a>
+  <a href="admin.php" class="active"><i class="ti ti-dashboard"></i> Dashboard</a>
+  <a href="upload.php"><i class="ti ti-upload"></i> Upload Mod</a>
+</div>
+<?php endif; ?>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>
+    <span>ICANG</span> <span>MOD</span><br><span>HUB</span>
+  </h1>
+  <p>Koleksi Mod GTA San Andreas Terbaru Dan Terlengkap</p>
+  <div class="search-bar">
+    <i class="ti ti-search search-icon"></i>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Cari mod...">
+  </div>
+</div>
+
+<!-- CATEGORY TABS + SORT BAR -->
+<div class="filter-bar">
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-filter="all">Semua</button>
+    <?php foreach($categories as $cat): ?>
+      <button class="cat-tab" data-filter="<?= htmlspecialchars($cat) ?>">
+        <?= htmlspecialchars($cat) ?>
+      </button>
+    <?php endforeach; ?>
+  </div>
+
+  <div class="sort-bar">
+    <div class="sort-wrapper" id="sortWrapper">
+      <button class="sort-btn" id="sortBtn">
+        <i class="ti ti-arrows-sort"></i>
+        <span id="sortLabel">Urutkan</span>
+        <i class="ti ti-chevron-down chevron"></i>
+      </button>
+      <div class="sort-dropdown" id="sortDropdown">
+        <div class="sort-label">Urutkan berdasarkan</div>
+        <div class="sort-option active" data-val="newest">
+          <i class="ti ti-clock"></i> Terbaru
+          <i class="ti ti-check check"></i>
+        </div>
+        <div class="sort-option" data-val="oldest">
+          <i class="ti ti-history"></i> Terlama
+        </div>
+        <div class="sort-divider"></div>
+        <div class="sort-option" data-val="name_asc">
+          <i class="ti ti-sort-ascending-letters"></i> Nama A–Z
+        </div>
+        <div class="sort-option" data-val="name_desc">
+          <i class="ti ti-sort-descending-letters"></i> Nama Z–A
+        </div>
+        <div class="sort-divider"></div>
+        <div class="sort-option" data-val="category_asc">
+          <i class="ti ti-tag"></i> Kategori A–Z
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOD GRID -->
+<div class="mod-section">
+  <div class="section-title">Semua Mod</div>
+  <div class="mod-grid" id="modGrid">
+    <?php if(empty($mods)): ?>
+      <div class="empty" style="grid-column:1/-1">
+        <i class="ti ti-package-off"></i>
+        Belum ada mod tersedia.
+      </div>
+    <?php else: ?>
+      <?php foreach($mods as $row): ?>
+        <a
+          class="mod-card"
+              href="view.php?id=<?= $row['id_unik'] ?>"
+              data-category="<?= htmlspecialchars($row['kategori']) ?>"
+              data-name="<?= strtolower(htmlspecialchars($row['nama'])) ?>"
+              data-date="<?= htmlspecialchars($row['date']) ?>">
+
+          <div class="mod-thumb">
+            <img
+              src="image/<?= htmlspecialchars($row['gambar']) ?>"
+              alt="<?= htmlspecialchars($row['nama']) ?>"
+              onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'ti ti-photo-off\'></i>'">
+          </div>
+
+          <div class="mod-info">
+            <div class="mod-name" title="<?= htmlspecialchars($row['nama']) ?>">
+              <?= htmlspecialchars($row['nama']) ?>
+            </div>
+            <div class="mod-meta" id="socialRow">
+              <span class="mod-date">
+                <?= date('d-m-y', strtotime($row['date'])) ?>
+              </span>
+              <span class="mod-cat-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <?= $row['avg_rating'] ? number_format($row['avg_rating'],1) : '0.0' ?>
+              </span>
+              <span class="mod-cat-badge">
+                <?= htmlspecialchars($row['kategori']) ?>
+              </span>
+            </div>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const modGrid     = document.getElementById("modGrid");
+const tabs        = document.querySelectorAll(".cat-tab");
+const sortBtn     = document.getElementById("sortBtn");
+const sortDropdown= document.getElementById("sortDropdown");
+const sortWrapper = document.getElementById("sortWrapper");
+const LOGGED_IN   = <?= json_encode(!empty($_SESSION['user'])) ?>;
+
+const sortLabels = {
+  newest: "Terbaru", oldest: "Terlama",
+  name_asc: "Nama A–Z", name_desc: "Nama Z–A",
+  category_asc: "Kategori A–Z"
+};
+
+let activeCategory = "all";
+let activeSort     = "newest";
+
+// ── SORT DROPDOWN ───────────────────────────────────
+sortBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const open = sortDropdown.style.display !== "block";
+  sortDropdown.style.display = open ? "block" : "none";
+  sortBtn.classList.toggle("open", open);
+});
+
+document.addEventListener("click", () => {
+  sortDropdown.style.display = "none";
+  sortBtn.classList.remove("open");
+});
+
+sortDropdown.querySelectorAll(".sort-option").forEach(opt => {
+  opt.addEventListener("click", () => {
+    sortDropdown.querySelectorAll(".sort-option").forEach(o => {
+      o.classList.remove("active");
+      const chk = o.querySelector(".check");
+      if (chk) chk.remove();
+    });
+    opt.classList.add("active");
+    const chk = document.createElement("i");
+    chk.className = "ti ti-check check";
+    opt.appendChild(chk);
+    activeSort = opt.dataset.val;
+    document.getElementById("sortLabel").textContent = sortLabels[activeSort];
+    sortDropdown.style.display = "none";
+    sortBtn.classList.remove("open");
+    renderMods();
+  });
+});
+
+// ── FILTER + SORT ───────────────────────────────────
+function renderMods() {
+  const keyword = searchInput.value.toLowerCase();
+  const cards   = Array.from(document.querySelectorAll(".mod-card"));
+
+  // Filter
+  const visible = cards.filter(c => {
+    const matchName = c.dataset.name.includes(keyword);
+    const matchCat  = activeCategory === "all" || c.dataset.category === activeCategory;
+    return matchName && matchCat;
+  });
+  const hidden = cards.filter(c => !visible.includes(c));
+
+  // Sort visible
+  visible.sort((a, b) => {
+    switch (activeSort) {
+      case "newest":       return new Date(b.dataset.date) - new Date(a.dataset.date);
+      case "oldest":       return new Date(a.dataset.date) - new Date(b.dataset.date);
+      case "name_asc":     return a.dataset.name.localeCompare(b.dataset.name);
+      case "name_desc":    return b.dataset.name.localeCompare(a.dataset.name);
+      case "category_asc": return a.dataset.category.localeCompare(b.dataset.category);
+    }
+  });
+
+  // Re-append in order
+  [...visible, ...hidden].forEach(c => modGrid.appendChild(c));
+  visible.forEach(c => c.style.display = "block");
+  hidden.forEach(c  => c.style.display = "none");
+}
+
+searchInput.addEventListener("input", renderMods);
+
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeCategory = tab.dataset.filter;
+    renderMods();
+  });
+});
+    
+renderMods();
+</script>
+
+</body>
+</html>
